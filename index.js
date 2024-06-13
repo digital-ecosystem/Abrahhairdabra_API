@@ -33,6 +33,8 @@ let userInfo = {}; // To store user messages and timeouts
 
 let tt = null;
 
+
+
 app.post('/webhook', (req, res) => {
     const  response  = req.body;
 
@@ -100,7 +102,7 @@ app.post('/webhook', (req, res) => {
         }).catch(error => {
             console.error("Error fetching or processing contact record:", error);
         });
-    }, 23000);
+    }, 20000);
 
 
     res.status(200).send('Message received');
