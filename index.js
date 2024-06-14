@@ -102,14 +102,14 @@ app.post('/webhook', (req, res) => {
         }).catch(error => {
             console.error("Error fetching or processing contact record:", error);
         });
-    }, 20000);
+    }, 1000);
 
 
     res.status(200).send('Message received');
 });
 
 
-
+https://9ed2-83-64-176-124.ngrok-free.app/webhook
 
 
 
@@ -145,10 +145,7 @@ function processUserMessages(userId) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        if (tt === '+4368181520584' ||  tt === '+4367764070473')
-        {
-            call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
-        }
+        call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         delete userInfo[userId];
     }
 }

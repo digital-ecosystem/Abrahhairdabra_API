@@ -30,7 +30,7 @@ export async function sendMessage(message, contact_id) {
     body: JSON.stringify({
       to: [{identifier: contact_id}],
       from: {channel_id: SUPERCHATCHANNEL_ID, name: 'WhatsApp'},
-      content: {type: 'text', body: JSON.stringify(message)}
+      content: {type: 'text', body: message}
     })
   };
   
