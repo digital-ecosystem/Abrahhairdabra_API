@@ -147,7 +147,7 @@ function processUserMessages(userId) {
         let convertMassage = userData.messages.join('\n');
         if (tt === '+4368181520584')
         {
-            call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
+            //call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         }
         delete userInfo[userId];
     }
