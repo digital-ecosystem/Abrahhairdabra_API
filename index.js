@@ -145,7 +145,7 @@ function processUserMessages(userId) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        if (tt === '+4368181520584')
+        if (tt === '+4368181520584' ||  tt === '+4367764070473')
         {
             //call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         }
