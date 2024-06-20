@@ -120,7 +120,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
                 messageContent = letMessage[0].content[0].text.value;
-                sendMessage(messageContent, superchat_contact_id);
+                //sendMessage(messageContent, superchat_contact_id);
+                console.log("message was sent to", phone);
             }
         } catch (error) {
             console.error('Error updating thread or retrieving messages:', error);
@@ -190,6 +191,7 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
             }
         }
     }
+    console.log("tmp: and q:", template_id, quickReplayBody);
     if (template_id || quickReplayBody)
     {
         let content_message = quickReplayBody;

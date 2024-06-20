@@ -1,6 +1,7 @@
 import { getSuperchatRecord, getSuperchatConveration} from './superchatFunctions.js';
 import { config } from 'dotenv';
 import { call_in_OpenAi } from './fetch.js';
+import { putMessageInThreadAssistant } from './fetch.js'
 
 config();
 
@@ -14,7 +15,7 @@ const gbt_attribute_id =    process.env.GPT_ATTRIBUTE;
 const gpt_lebel =           process.env.GPT_LEBEL;
 
 
-export async function runGpt(contact_id, mg, phone) {
+export async function runGpt(contact_id, mg , phone) {
     const contact_record = await getSuperchatRecord(contact_id);
     const conversation_record = await getSuperchatConveration(contact_id);
     const lebels = conversation_record.results[0].labels;
@@ -31,6 +32,7 @@ export async function runGpt(contact_id, mg, phone) {
             {
                 if (blockingLebels.includes(lebel_1.id))
                 {
+                    console.log("user is going to be blocked brcause of lebel: ", lebel_1);
                     checker = 0;
                 }
             });
@@ -39,7 +41,7 @@ export async function runGpt(contact_id, mg, phone) {
 
     if (checker === 0)
     {
-
+        //putMessageInThreadAssistant(template_id, quickReplayBody, phone);
         call_in_OpenAi(mg, phone, contact_id, 0);
         return false;
     }

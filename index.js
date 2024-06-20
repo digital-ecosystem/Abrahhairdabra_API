@@ -76,11 +76,12 @@ app.post('/webhook', (req, res) => {
         {
             if (Istrue === true)
             {
-                console.log("User is not blocked");
+                console.log("User is in processing");
                 processUserMessages(userId);
             }
             else
             {
+                console.log("User is blocked");
                 userInfo[userId].outbound = setTimeout(() =>
                 {
                     if (userInfo[userId].outboundReceived && (userInfo[userId].template_id || userInfo[userId].quickReplayBody))
@@ -102,14 +103,13 @@ app.post('/webhook', (req, res) => {
         }).catch(error => {
             console.error("Error fetching or processing contact record:", error);
         });
-    }, 20000);
+    }, 1000);
 
 
     res.status(200).send('Message received');
 });
 
 
-https://9ed2-83-64-176-124.ngrok-free.app/webhook
 
 
 

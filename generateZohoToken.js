@@ -26,8 +26,6 @@ export async function generateZohoOauthToken() {
 
         const { access_token, expires_in } = response.data;
 
-        console.log('Access Token:', access_token);
-        console.log('Expires In:', expires_in);
 
         // Store the access token and its expiration time securely
         // Example: Save to environment variables or secure storage
