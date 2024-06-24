@@ -23,7 +23,6 @@ export async function runThreadAndSend(contact)
             phone = phone.toString();
         }
     });
-    console.log(phone);
 
     try {
         const searchResponse = await axios.get(`${ZOHO_CRM_API_URL}Leads/search?phone=${phone}`, {
@@ -34,9 +33,12 @@ export async function runThreadAndSend(contact)
         if (searchResponse)
         {
             record = searchResponse.data.data;
-            if (record && record.length > 0) {
+            if (record && record.length > 0)
+            {
                 thread_id = record[0].Thread_Id;
             }
+
+
             if (!thread_id)
             {
                 console.log('No contact has no thread');
@@ -56,7 +58,7 @@ export async function runThreadAndSend(contact)
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
                 messageContent = letMessage[0].content[0].text.value;
-                //sendMessage(messageContent, contact.id);
+                sendMessage(messageContent, contact.id);
             }
         }
         else

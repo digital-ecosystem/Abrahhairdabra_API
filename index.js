@@ -5,7 +5,7 @@ import { dirname } from 'path';
 import bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import {call_in_OpenAi, putMessageInThreadAssistant} from './fetch.js';
-import {runGpt} from './gptFilter.js';
+import {runGpt, outboundMessageFilter} from './gptFilter.js';
 import { Templates } from '@zohocrm/nodejs-sdk-6.0';
 import {runThreadAndSend} from './sendMessagefromAttribute.js';
 
@@ -70,9 +70,9 @@ app.post('/webhook', (req, res) => {
     }
 
     // Set a new timeout for 20 seconds
-    userInfo[userId].timeout = setTimeout(() =>
+    userInfo[userId].timeout = setTimeout( async() =>
     {
-        runGpt(superchat_contact_id, message, userPhone).then(Istrue =>
+        runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then(Istrue =>
         {
             if (Istrue === true)
             {
@@ -114,12 +114,12 @@ app.post('/webhook', (req, res) => {
 
 
 
-app.post('/outboundWebhook', (req, res) => {
+app.post('/outboundWebhook', async (req, res) => {
     const outboundMessageInfo = req.body;
     const userId = outboundMessageInfo.message.to[0].contact_id;
     const contentType = outboundMessageInfo.message.content.type;
+    const phoneNummber = parseInt(outboundMessageInfo.message.to[0].identifier);
 
-    
     if (userInfo[userId])
     {
         if (contentType === 'whats_app_template')
@@ -134,18 +134,35 @@ app.post('/outboundWebhook', (req, res) => {
             userInfo[userId].outboundReceived = true;
             userInfo[userId].messageType = contentType;
         }
+    }else if (await outboundMessageFilter(userId, phoneNummber, outboundMessageInfo.message.content.body))
+    {
+        if (contentType === 'whats_app_template')
+        {
+            const template_id = outboundMessageInfo.message.content.template_id;
+            await putMessageInThreadAssistant(template_id, null, phoneNummber);
+        }
+        else if (contentType === 'whats_app_quick_reply')
+        {
+            const quickReplayBody = outboundMessageInfo.message.content.body;
+            await putMessageInThreadAssistant(null, quickReplayBody, phoneNummber);
+        }
+        else
+        {
+            const content = outboundMessageInfo.message.content.body;
+            await putMessageInThreadAssistant(null, content, phoneNummber);
+            
+        }
     }
-
     res.status(200).send('Outbound message received');
 });
 
-function processUserMessages(userId) {
+async function processUserMessages(userId) {
     const userData = userInfo[userId];
     if (userData && userData.messages.length > 0) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
+        await call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         delete userInfo[userId];
     }
 }
@@ -161,7 +178,7 @@ app.post('/runchatgpt', (req, res) => {
     custom_attributes.forEach(attribute => {
         if (attribute.id === GPT_ATTRIBUTE && attribute.value === '1') 
         {
-            //runThreadAndSend(contact);
+            runThreadAndSend(contact);
         }
     });
 

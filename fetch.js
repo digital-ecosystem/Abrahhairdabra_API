@@ -2,7 +2,6 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import { generateZohoOauthToken } from './generateZohoToken.js';
 import OpenAI from "openai";
-import { updateRecord, createRecord } from './zohoFunctions.js';
 import { getSuperchatRecord, sendMessage } from './superchatFunctions.js';
 
 dotenv.config();
@@ -32,11 +31,9 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
 
     let thread_id = null;
     let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
-    console.log(ZOHO_OAUTH_TOKEN);
     var record = null;
 
     // Search for the record in Zoho CRM
-    console.log(phone);
     try {
         const searchResponse = await axios.get(`${ZOHO_CRM_API_URL}Leads/search?phone=${phone}`, {
             headers: {
@@ -120,7 +117,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
                 messageContent = letMessage[0].content[0].text.value;
-                sendMessage(messageContent, superchat_contact_id);
+                //sendMessage(messageContent, superchat_contact_id);
                 console.log("message was sent to", phone);
             }
         } catch (error) {
@@ -169,6 +166,13 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
                     }
                 });
             } catch (error) {
+                setTimeout(async () => {
+                    await axios.put(`${ZOHO_CRM_API_URL}Leads/${id}`, { data: [update_record] }, {
+                        headers: {
+                            'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
+                        }});
+                }, 10000);
+                            
                 console.error('Error updating record in Zoho CRM in putMessageInThreadAssistant:', error);
             }
         }
@@ -191,7 +195,6 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
             }
         }
     }
-    console.log("tmp: and q:", template_id, quickReplayBody);
     if (template_id || quickReplayBody)
     {
         let content_message = quickReplayBody;
