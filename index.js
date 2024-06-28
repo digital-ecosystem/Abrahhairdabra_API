@@ -72,37 +72,40 @@ app.post('/webhook', (req, res) => {
     // Set a new timeout for 20 seconds
     userInfo[userId].timeout = setTimeout( async() =>
     {
-        runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then(Istrue =>
+        if(userInfo[userId].messages.length > 0)
         {
-            if (Istrue === true)
-            {
-                console.log("User is in processing");
-                processUserMessages(userId);
-            }
-            else
-            {
-                console.log("User is blocked");
-                userInfo[userId].outbound = setTimeout(() =>
+            runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then(Istrue =>
                 {
-                    if (userInfo[userId].outboundReceived && (userInfo[userId].template_id || userInfo[userId].quickReplayBody))
+                    if (Istrue === true)
                     {
-                        const template_id = userInfo[userId].template_id;
-                        const quickReplayBody = userInfo[userId].quickReplayBody;
-                        putMessageInThreadAssistant(template_id, quickReplayBody, userPhone);
-                        console.log("template id", userInfo[userId].template_id);
-                        console.log(`Outbound message  received for user ${userId}`);
+                        console.log("User is in processing");
+                        processUserMessages(userId);
                     }
                     else
                     {
-                        console.log(`Outbound message not received for user ${userId}`);
+                        console.log("User is blocked");
+                        userInfo[userId].outbound = setTimeout(() =>
+                        {
+                            if (userInfo[userId].outboundReceived && (userInfo[userId].template_id || userInfo[userId].quickReplayBody))
+                            {
+                                const template_id = userInfo[userId].template_id;
+                                const quickReplayBody = userInfo[userId].quickReplayBody;
+                                putMessageInThreadAssistant(template_id, quickReplayBody, userPhone);
+                                console.log("template id", userInfo[userId].template_id);
+                                console.log(`Outbound message  received for user ${userId}`);
+                            }
+                            else
+                            {
+                                console.log(`Outbound message not received for user ${userId}`);
+                            }
+                            delete userInfo[userId];
+                        }, 10000);
                     }
-                    delete userInfo[userId];
-                }, 10000);
-            }
-            
-        }).catch(error => {
-            console.error("Error fetching or processing contact record:", error);
-        });
+                    
+                }).catch(error => {
+                    console.error("Error fetching or processing contact record:", error);
+                });
+        }
     }, 20000);
 
 
@@ -162,7 +165,10 @@ async function processUserMessages(userId) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        await call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
+        if (convertMassage)
+        {
+            await call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
+        }
         delete userInfo[userId];
     }
 }
