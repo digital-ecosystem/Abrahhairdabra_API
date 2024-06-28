@@ -8,6 +8,8 @@ import {call_in_OpenAi, putMessageInThreadAssistant} from './fetch.js';
 import {runGpt, outboundMessageFilter} from './gptFilter.js';
 import { Templates } from '@zohocrm/nodejs-sdk-6.0';
 import {runThreadAndSend} from './sendMessagefromAttribute.js';
+import {generateZohoOauthToken} from './generateZohoToken.js';
+import { search_for_available_slots, test2, book_appointment } from './test.js';
 
 config();
 
@@ -30,8 +32,6 @@ app.get('/', (req, res) => {
 
 let userInfo = {}; // To store user messages and timeouts
 
-
-let tt = null;
 
 
 

@@ -1,12 +1,12 @@
 {
-  "name": "easymenu",
+  "name": "Abrahairdabra",
   "version": "1.0.0",
   "description": "this is the first version if the easy menu web app",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "pm2 start index.js"
   },
   "author": "Bassem",
   "license": "ISC",
@@ -18,7 +18,8 @@
     "dirname": "^0.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "openai": "^4.49.1"
+    "openai": "^4.49.1",
+    "pm2": "^5.4.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.2"
