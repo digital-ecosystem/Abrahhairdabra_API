@@ -9,8 +9,6 @@ dotenv.config();
 
 
 
-
-
 const openai = new OpenAI();
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/';
