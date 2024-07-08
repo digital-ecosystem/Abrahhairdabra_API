@@ -164,7 +164,7 @@ async function processUserMessages(userId) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        if ( convertMassage && (userData.phone === '+4368181520584' || userData.phone === '+4367761177977' || phone === '+4369910737202' || phone === '+4367764070473'))
+        if ( convertMassage && (userData.phone === '+4368181520584' || userData.phone === '+4367761177977' || userData.phone === '+4369910737202' || userData.phone === '+4367764070473'))
         {
             await call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         }
