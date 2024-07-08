@@ -105,7 +105,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
             if (checker === 1)
             {
                 let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
-                if (phone === '+4368181520584') || (phone === '++4367761177977') || phone === '+4369010420973')
+                if (phone === '+4368181520584' || (phone === '++4367761177977') || phone === '+4369010420973')
                 {
                     while (run.status !== 'completed') {
                         if (run.status === 'requires_action') {
