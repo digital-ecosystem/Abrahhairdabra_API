@@ -54,8 +54,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
 
     // If no thread_id, create a new thread
     if (!thread_id) {
-        const response = await openai.beta.threads.create();
-        thread_id = response.id;
+        const response = await axios.post(`${OPENAI_API_URL}threads`, {}, { headers });
+        thread_id = response.data.id;
 
         const update_record = { Thread_Id: thread_id };
 
@@ -105,7 +105,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
             if (checker === 1)
             {
                 let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
-                if (phone === '+4368181520584' || phone === '+4367761177977' || phone === '+4369010420973') {
+                if (phone === '+4368181520584') || (phone === '++4367761177977') || phone === '+4369010420973')
+                {
                     while (run.status !== 'completed') {
                         if (run.status === 'requires_action') {
                             if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {
@@ -136,7 +137,6 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         };
                                     }else if (tool.function.name === "book_appointment"){
                                         const args = JSON.parse(tool.function.arguments);
-                                        console.log(args);
                                         let bookingResponse = null;
                                         if (args && args.date && args.full_name && args.email) {
                                             const date = args.date;
@@ -178,7 +178,6 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                         run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
                     }
                 }
-
                 // to get the last message from the assistant
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
