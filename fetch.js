@@ -3,13 +3,13 @@ import dotenv from 'dotenv';
 import { generateZohoOauthToken } from './generateZohoToken.js';
 import OpenAI from "openai";
 import { getSuperchatRecord, sendMessage } from './superchatFunctions.js';
+import { search_for_available_slots, book_appointment } from './test.js';
 
 dotenv.config();
 
 
 
 
-const openai = new OpenAI();
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/';
 const ZOHO_CRM_API_URL = 'https://www.zohoapis.eu/crm/v6/';
@@ -22,6 +22,8 @@ const headers = {
     'Content-Type': 'application/json',
     'OpenAI-Beta': 'assistants=v2'
 };
+
+const openai = new OpenAI({apiKey: OPENAI_API_KEY});
 
 
 export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
@@ -52,7 +54,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
 
     // If no thread_id, create a new thread
     if (!thread_id) {
-        const response = await axios.post(`${OPENAI_API_URL}threads`, {}, { headers });
+        const response = await openai.beta.threads.create();
         thread_id = response.data.id;
 
         const update_record = { Thread_Id: thread_id };
@@ -102,16 +104,82 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
 
             if (checker === 1)
             {
-                const run = await openai.beta.threads.runs.create(
-                    thread_id,
-                    { assistant_id: OPENAI_ASSISTANT }
-                  );
-                var run_status = run.status;
-                while (run_status !== 'completed')
-                {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    run_status = (await openai.beta.threads.runs.retrieve(thread_id, run.id)).status;
+                let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
+                if (phone === '+4368181520584' || phone === '+4367761177977' || phone === '+4369010420973') {
+                    while (run.status !== 'completed') {
+                        if (run.status === 'requires_action') {
+                            if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {
+                                console.log("Tool calls found.", run.required_action.submit_tool_outputs);
+                                const toolOutputs = await Promise.all(run.required_action.submit_tool_outputs.tool_calls.map(async (tool) => {
+                
+                                    if (tool.function.name === "search_for_available_slots") {
+                                        const args = JSON.parse(tool.function.arguments);
+                                        let availableSlots = null;
+                                        if (args && args.date) {
+                                            const date = args.date;
+                                            console.log(date);
+                                            availableSlots = await search_for_available_slots(date);
+                                            if (availableSlots && availableSlots === 'Slots Not Available') {
+                                                availableSlots = 'no slots available';
+                                            }else
+                                            {
+                                                availableSlots = availableSlots.join(', ');
+                                            }
+                                            console.log(availableSlots);
+                
+                                        } else {
+                                            availableSlots = 'no slots available';
+                                        }
+                                        return {
+                                            tool_call_id: tool.id,
+                                            output: availableSlots,
+                                        };
+                                    }else if (tool.function.name === "book_appointment"){
+                                        const args = JSON.parse(tool.function.arguments);
+                                        console.log(args);
+                                        let bookingResponse = null;
+                                        if (args && args.date && args.full_name && args.email) {
+                                            const date = args.date;
+                                            const full_name = args.full_name;
+                                            const email = args.email;
+                                            bookingResponse = await book_appointment(date, email, full_name, '+4368181520584', null, null);
+                                            if (bookingResponse.status === 'success') {
+                                                bookingResponse = 'appointment booked successfully';
+                                            }
+                                            else
+                                            {
+                                                bookingResponse = 'appointment not booked';
+                                            }
+                                            console.log(bookingResponse);
+                                        } else {
+                                            bookingResponse = 'no slots available';
+                                        }
+                                        return {
+                                            tool_call_id: tool.id,
+                                            output: bookingResponse,
+                                        };
+                                    }
+                                    else if (tool.function.name === 'your_current_date_and_time')
+                                        var event = new Date();
+                                        const dateString = event.toString();
+                                        return {
+                                            tool_call_id: tool.id,
+                                            output: dateString,
+                                        };
+                                }));
+                                if (toolOutputs.length > 0) {
+                                    run = await openai.beta.threads.runs.submitToolOutputsAndPoll(thread_id, run.id, { tool_outputs: toolOutputs });
+                                    console.log("Tool outputs submitted successfully.");
+                                } else {
+                                    console.log("No tool outputs to submit.");
+                                }
+                            }
+                        }
+                        run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
+                    }
                 }
+
+                // to get the last message from the assistant
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
                 messageContent = letMessage[0].content[0].text.value;

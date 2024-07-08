@@ -68,7 +68,6 @@ app.post('/webhook', (req, res) => {
         clearTimeout(userInfo[userId].timeout);
         clearTimeout(userInfo[userId].outbound);
     }
-
     // Set a new timeout for 20 seconds
     userInfo[userId].timeout = setTimeout( async() =>
     {
@@ -165,7 +164,7 @@ async function processUserMessages(userId) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
-        if (convertMassage)
+        if (convertMassage && userData.phone === '+4368181520584')
         {
             await call_in_OpenAi(convertMassage, userData.phone, userData.superchat_contact_id, 1);
         }

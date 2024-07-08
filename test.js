@@ -47,7 +47,7 @@ const headers = {
     'OpenAI-Beta': 'assistants=v2'
 };
 
-const openai = new OpenAI(OPENAI_API_KEY);
+const openai = new OpenAI({apiKey: OPENAI_API_KEY});
 
 export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
     const ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
@@ -101,11 +101,11 @@ export async function search_for_available_slots(date) {
 
 
 export async function test2() {
-    const thread_id = 'thread_8Niy7OuVQ58pg8g47Dd7ecwG';
+    const thread_id = 'thread_jatvh9E73o82OA66doj9KVhp';
     try {
         const response1 = await openai.beta.threads.messages.create(thread_id, {
             role: "user",
-            content: 'ja'
+            content: 'ja gerne einen Termin buchen'
         });
         let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
         while (run.status !== 'completed') {
@@ -190,5 +190,5 @@ export async function test2() {
     }
 }
 
-//test2();
+test2();
 //search_for_available_slots('02-07-2024');
