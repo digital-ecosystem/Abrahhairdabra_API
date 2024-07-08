@@ -189,6 +189,4 @@ export async function test2() {
         console.error('Error in test2 function:', error.message);
     }
 }
-
-test2();
 //search_for_available_slots('02-07-2024');
