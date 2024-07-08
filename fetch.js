@@ -55,7 +55,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
     // If no thread_id, create a new thread
     if (!thread_id) {
         const response = await openai.beta.threads.create();
-        thread_id = response.data.id;
+        thread_id = response.id;
 
         const update_record = { Thread_Id: thread_id };
 
