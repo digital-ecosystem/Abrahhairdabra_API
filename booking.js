@@ -67,9 +67,8 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
 
 //book_appointment(null, 'bassem@gmail.com', 'bassem mahdi', null, null, null);
 
-export async function search_for_available_slots(date) {
+export async function search_for_available_slots(date, service_id) {
     const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
-    const service_id = '165640000000050116';
     const staff_id = '165640000000060232';
 
     try {
