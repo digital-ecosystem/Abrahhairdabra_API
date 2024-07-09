@@ -9,7 +9,7 @@ import {runGpt, outboundMessageFilter} from './gptFilter.js';
 import { Templates } from '@zohocrm/nodejs-sdk-6.0';
 import {runThreadAndSend} from './sendMessagefromAttribute.js';
 import {generateZohoOauthToken} from './generateZohoToken.js';
-import { search_for_available_slots, book_appointment } from './test.js';
+import { search_for_available_slots, book_appointment } from './booking.js';
 
 config();
 

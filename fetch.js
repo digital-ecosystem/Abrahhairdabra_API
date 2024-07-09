@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { generateZohoOauthToken } from './generateZohoToken.js';
 import OpenAI from "openai";
 import { getSuperchatRecord, sendMessage } from './superchatFunctions.js';
-import { search_for_available_slots, book_appointment } from './test.js';
+import { search_for_available_slots, book_appointment } from './booking.js';
 
 dotenv.config();
 
@@ -140,7 +140,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         const date = args.date;
                                         const full_name = args.full_name;
                                         const email = args.email;
-                                        bookingResponse = await book_appointment(date, email, full_name, phone, null, null);
+                                        const service_id = args.service_id;
+                                        bookingResponse = await book_appointment(date, email, full_name, phone, null, service_id);
                                         if (bookingResponse.status === 'success') {
                                             bookingResponse = 'appointment booked successfully';
                                         }

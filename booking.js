@@ -11,7 +11,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REFRESH_TOKEN = '1000.5ea21b0e40c824be9faf9f8bb7b52fbb.a1add4292dc3463b47c9a5117bc9dece'; // Store this refresh token securely
 
-async function generateZohoOauthToken() {
+async function generateZohoOauthTokenForBooking() {
     try {
         const response = await axios.post(ZOHO_TOKEN_URL, null, {
             params: {
@@ -36,22 +36,8 @@ async function generateZohoOauthToken() {
     }
 }
 
-const OPENAI_API_URL = 'https://api.openai.com/v1/';
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_ASSISTANT = process.env.OPENAI_ASSISTANT;
-const SUPERCHAT_API_KEY = process.env.SUPERCHAT_API_KEY;
-
-const headers = {
-    'Authorization': `Bearer ${OPENAI_API_KEY}`,
-    'Content-Type': 'application/json',
-    'OpenAI-Beta': 'assistants=v2'
-};
-
-const openai = new OpenAI({apiKey: OPENAI_API_KEY});
-
 export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
-    const ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
-    service_id = '165640000000050116';
+    const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
     staff_id = '165640000000060232';
 
     try {
@@ -82,7 +68,7 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
 //book_appointment(null, 'bassem@gmail.com', 'bassem mahdi', null, null, null);
 
 export async function search_for_available_slots(date) {
-    const ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
+    const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
     const service_id = '165640000000050116';
     const staff_id = '165640000000060232';
 
