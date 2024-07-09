@@ -100,7 +100,7 @@ export async function search_for_available_slots(date) {
 }
 
 
-export async function test2() {
+/*export async function test2() {
     const thread_id = 'thread_jatvh9E73o82OA66doj9KVhp';
     try {
         const response1 = await openai.beta.threads.messages.create(thread_id, {
@@ -188,5 +188,5 @@ export async function test2() {
     } catch (error) {
         console.error('Error in test2 function:', error.message);
     }
-}
+}*/
 //search_for_available_slots('02-07-2024');

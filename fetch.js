@@ -140,7 +140,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         const date = args.date;
                                         const full_name = args.full_name;
                                         const email = args.email;
-                                        bookingResponse = await book_appointment(date, email, full_name, '+4368181520584', null, null);
+                                        bookingResponse = await book_appointment(date, email, full_name, phone, null, null);
                                         if (bookingResponse.status === 'success') {
                                             bookingResponse = 'appointment booked successfully';
                                         }
