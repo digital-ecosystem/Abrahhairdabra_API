@@ -105,7 +105,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
             if (checker === 1)
             {
                 let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
-                while (run.status !== 'completed') {
+                /*while (run.status !== 'completed') {
                     if (run.status === 'requires_action') {
                         if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {
                             console.log("Tool calls found.", run.required_action.submit_tool_outputs);
@@ -176,7 +176,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                         }
                         run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
                     }
-                }
+                }*/
                 // to get the last message from the assistant
                 const threadMessages = await openai.beta.threads.messages.list(thread_id);
                 const letMessage = threadMessages.data;
