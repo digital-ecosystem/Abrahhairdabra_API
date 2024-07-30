@@ -75,6 +75,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
         {
             update_record.Phone = phone;
             update_record.First_Name = await getSuperchatRecord(superchat_contact_id).first_name ?? 'unknown';
+            console.log(await getSuperchatRecord(superchat_contact_id));
             update_record.Last_Name = await getSuperchatRecord(superchat_contact_id).last_name ?? 'unknown';
             try
             {
