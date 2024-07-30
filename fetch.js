@@ -74,8 +74,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
         else
         {
             update_record.Phone = phone;
-            update_record.First_Name = getSuperchatRecord(superchat_contact_id).first_name ?? 'unknown';
-            update_record.Last_Name = getSuperchatRecord(superchat_contact_id).last_name ?? 'unknown';
+            update_record.First_Name = await getSuperchatRecord(superchat_contact_id).first_name ?? 'unknown';
+            update_record.Last_Name = await getSuperchatRecord(superchat_contact_id).last_name ?? 'unknown';
             try
             {
                 const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
@@ -160,12 +160,15 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                     };
                                 }
                                 else if (tool.function.name === 'your_current_date_and_time')
+                                {
                                     var event = new Date();
+                                    console.log("the date of today is: ", event);
                                     const dateString = event.toString();
                                     return {
                                         tool_call_id: tool.id,
                                         output: dateString,
                                     };
+                                }
                             }));
                             if (toolOutputs.length > 0) {
                                 run = await openai.beta.threads.runs.submitToolOutputsAndPoll(thread_id, run.id, { tool_outputs: toolOutputs });
