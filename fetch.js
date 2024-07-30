@@ -110,8 +110,16 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                         if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {
                             console.log("Tool calls found.", run.required_action.submit_tool_outputs);
                             const toolOutputs = await Promise.all(run.required_action.submit_tool_outputs.tool_calls.map(async (tool) => {
-            
-                                if (tool.function.name === "search_for_available_slots") {
+                                console.log("Tool calls found.", run.required_action.submit_tool_outputs.tool_calls[0].function.name);
+                                if (tool.function.name === 'your_current_date_and_time'){
+                                    var event = new Date();
+                                    console.log("the date of today is: ", event);
+                                    const dateString = event.toString();
+                                    return {
+                                        tool_call_id: tool.id,
+                                        output: dateString,
+                                    };
+                                } else if (tool.function.name === "search_for_available_slots") {
                                     const args = JSON.parse(tool.function.arguments);
                                     let availableSlots = null;
                                     if (args && args.date) {
@@ -157,16 +165,6 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                     return {
                                         tool_call_id: tool.id,
                                         output: bookingResponse,
-                                    };
-                                }
-                                else if (tool.function.name === 'your_current_date_and_time')
-                                {
-                                    var event = new Date();
-                                    console.log("the date of today is: ", event);
-                                    const dateString = event.toString();
-                                    return {
-                                        tool_call_id: tool.id,
-                                        output: dateString,
                                     };
                                 }
                             }));
