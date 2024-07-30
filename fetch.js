@@ -74,9 +74,9 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
         else
         {
             update_record.Phone = phone;
-            update_record.First_Name = await getSuperchatRecord(superchat_contact_id).first_name ?? 'unknown';
-            console.log(await getSuperchatRecord(superchat_contact_id));
-            update_record.Last_Name = await getSuperchatRecord(superchat_contact_id).last_name ?? 'unknown';
+            const superchat_record = await getSuperchatRecord(superchat_contact_id);
+            update_record.First_Name = superchat_record.first_name ?? 'unknown';
+            update_record.Last_Name = superchat_record.last_name ?? 'unknown';
             try
             {
                 const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
