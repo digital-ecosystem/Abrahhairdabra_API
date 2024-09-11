@@ -47,10 +47,13 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
         formDate.append('staff_id', staff_id);
         formDate.append('from_time', date);
         formDate.append('timezone', 'Europe/Vienna');
+        formDate.append('additional_fields', JSON.stringify({
+            source: 'GPT'
+        }));
         formDate.append('customer_details', JSON.stringify({
             name: full_name,
             email: email,
-            phone_number: phone
+            phone_number: phone,
         }));
         const book_appointment = await axios.post(url, formDate, {
             headers: {
