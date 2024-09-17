@@ -38,7 +38,7 @@ async function generateZohoOauthTokenForBooking() {
 
 export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
     const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
-    staff_id = '165640000000060232';
+    staff_id = '165640000000051254';
 
     try {
         const url = `https://www.zohoapis.eu/bookings/v1/json/appointment`;
