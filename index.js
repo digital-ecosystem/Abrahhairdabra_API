@@ -70,7 +70,7 @@ app.post('/webhook', (req, res) => {
     // Set a new timeout for 20 seconds
     userInfo[userId].timeout = setTimeout( async() =>
     {
-        if(userInfo[userId].messages.length > 0)
+        if(userInfo[userId] && userInfo[userId].messages && userInfo[userId].messages.length > 0)
         {
             runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then(Istrue =>
                 {
@@ -159,7 +159,7 @@ app.post('/outboundWebhook', async (req, res) => {
 
 async function processUserMessages(userId) {
     const userData = userInfo[userId];
-    if (userData && userData.messages.length > 0) {
+    if (userData && userData.messages && userData.messages.length > 0) {
         console.log(`Processing messages for user ${userId}:`, userData.messages);
 
         let convertMassage = userData.messages.join('\n');
