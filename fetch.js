@@ -132,6 +132,9 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                             availableSlots = 'no slots available';
                                         }else
                                         {
+                                            if (!Array.isArray(availableSlots)) {
+                                                availableSlots = [availableSlots];
+                                            }
                                             availableSlots = availableSlots.join(', ');
                                         }
                                         console.log(availableSlots);
