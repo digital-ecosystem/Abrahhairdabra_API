@@ -9,7 +9,7 @@ const ZOHO_TOKEN_URL = 'https://accounts.zoho.eu/oauth/v2/token';
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
-const REFRESH_TOKEN = '1000.5ea21b0e40c824be9faf9f8bb7b52fbb.a1add4292dc3463b47c9a5117bc9dece'; // Store this refresh token securely
+const REFRESH_TOKEN_FOR_BOOKING = process.env.REFRESH_TOKEN_FOR_BOOKING; // Store this refresh token securely
 
 async function generateZohoOauthTokenForBooking() {
     try {
@@ -18,7 +18,7 @@ async function generateZohoOauthTokenForBooking() {
                 client_id: CLIENT_ID,
                 client_secret: CLIENT_SECRET,
                 redirect_uri: REDIRECT_URI,
-                refresh_token: REFRESH_TOKEN,
+                refresh_token: REFRESH_TOKEN_FOR_BOOKING,
                 grant_type: 'refresh_token'
             },
             headers: {
@@ -38,7 +38,7 @@ async function generateZohoOauthTokenForBooking() {
 
 export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
     const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
-    staff_id = '165640000000051254';
+    staff_id = process.env.STAFF_ID;
 
     try {
         const url = `https://www.zohoapis.eu/bookings/v1/json/appointment`;
@@ -72,7 +72,8 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
 
 export async function search_for_available_slots(date, service_id) {
     const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
-    const staff_id = '165640000000060232';
+    const staff_id = process.env.STAFF_ID;
+
 
     try {
         const searchResponse = await axios.get(`https://www.zohoapis.eu/bookings/v1/json/availableslots?service_id=${service_id}&staff_id=${staff_id}&selected_date=${date}`, {
@@ -86,95 +87,3 @@ export async function search_for_available_slots(date, service_id) {
         throw error;
     }
 }
-
-
-/*export async function test2() {
-    const thread_id = 'thread_jatvh9E73o82OA66doj9KVhp';
-    try {
-        const response1 = await openai.beta.threads.messages.create(thread_id, {
-            role: "user",
-            content: 'ja gerne einen Termin buchen'
-        });
-        let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
-        while (run.status !== 'completed') {
-            if (run.status === 'requires_action') {
-                if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {
-                    console.log("Tool calls found.", run.required_action.submit_tool_outputs);
-                    const toolOutputs = await Promise.all(run.required_action.submit_tool_outputs.tool_calls.map(async (tool) => {
-    
-                        if (tool.function.name === "search_for_available_slots") {
-                            const args = JSON.parse(tool.function.arguments);
-                            let availableSlots = null;
-                            if (args && args.date) {
-                                const date = args.date;
-                                console.log(date);
-                                availableSlots = await search_for_available_slots(date);
-                                if (availableSlots && availableSlots === 'Slots Not Available') {
-                                    availableSlots = 'no slots available';
-                                }else
-                                {
-                                    availableSlots = availableSlots.join(', ');
-                                }
-                                console.log(availableSlots);
-    
-                            } else {
-                                availableSlots = 'no slots available';
-                            }
-                            return {
-                                tool_call_id: tool.id,
-                                output: availableSlots,
-                            };
-                        }else if (tool.function.name === "book_appointment"){
-                            const args = JSON.parse(tool.function.arguments);
-                            console.log(args);
-                            let bookingResponse = null;
-                            if (args && args.date && args.full_name && args.email) {
-                                const date = args.date;
-                                const full_name = args.full_name;
-                                const email = args.email;
-                                bookingResponse = await book_appointment(date, email, full_name, '+4368181520584', null, null);
-                                if (bookingResponse.status === 'success') {
-                                    bookingResponse = 'appointment booked successfully';
-                                }
-                                else
-                                {
-                                    bookingResponse = 'appointment not booked';
-                                }
-                                console.log(bookingResponse);
-                            } else {
-                                bookingResponse = 'no slots available';
-                            }
-                            return {
-                                tool_call_id: tool.id,
-                                output: bookingResponse,
-                            };
-                        }
-                        else if (tool.function.name === 'your_current_date_and_time')
-                            var event = new Date();
-                            const dateString = event.toString();
-                            console.log(dateString);
-                            return {
-                                tool_call_id: tool.id,
-                                output: dateString,
-                            };
-                    }));
-                    if (toolOutputs.length > 0) {
-                        run = await openai.beta.threads.runs.submitToolOutputsAndPoll(thread_id, run.id, { tool_outputs: toolOutputs });
-                        console.log("Tool outputs submitted successfully.");
-                    } else {
-                        console.log("No tool outputs to submit.");
-                    }
-                }
-            }
-            run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
-        }
-        //console.log(run);
-        const response = await openai.beta.threads.messages.list(thread_id);
-        const data = response.data;
-        const threadMessages = data[0];
-        console.log(threadMessages);
-    } catch (error) {
-        console.error('Error in test2 function:', error.message);
-    }
-}*/
-//search_for_available_slots('02-07-2024');

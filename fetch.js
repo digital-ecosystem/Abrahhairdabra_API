@@ -128,7 +128,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         const service_id = args.service_id;
                                         console.log(date);
                                         availableSlots = await search_for_available_slots(date, service_id);
-                                        if (availableSlots && availableSlots === 'Slots Not Available') {
+                                        if ((availableSlots && availableSlots === 'Slots Not Available') || !availableSlots[0]) {
                                             availableSlots = 'no slots available';
                                         }else
                                         {
@@ -248,8 +248,8 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
         else
         {
             update_record.Phone = phone;
-            update_record.First_Name = 'Test';
-            update_record.Last_Name = 'User';
+            update_record.First_Name = 'Unkonw';
+            update_record.Last_Name = 'Unkonw';
             try
             {
                 const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
