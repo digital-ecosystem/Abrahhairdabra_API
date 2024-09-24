@@ -73,7 +73,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
         }
         else
         {
-            update_record.Phone = phone;
+            update_record.Phone = phone.toString();
             const superchat_record = await getSuperchatRecord(superchat_contact_id);
             update_record.First_Name = superchat_record.first_name ?? 'unknown';
             update_record.Last_Name = superchat_record.last_name ?? 'unknown';
@@ -302,3 +302,24 @@ async function getContentTemplateFromSuperchat(template_id)
         .then(response => response.json())
         .catch(err => console.error(err));
 }
+
+/*let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
+const thread_id = "fgdfhghs";
+const update_record = { Thread_Id: thread_id };
+update_record.Phone = "+43681818335";
+update_record.First_Name =  'unknown';
+update_record.Last_Name =  'unknown';
+try
+{
+    const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
+    headers: {
+        'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
+    }
+});
+console.log(res);
+console.log("sss");
+}
+catch (error)
+{
+    console.error('Error creating record in Zoho CRM:', error);
+}*/
