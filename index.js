@@ -105,7 +105,6 @@ app.post('/incoming', (req, res) => {
 });
 
 
-
 app.post('/outgoing', async (req, res) => {
     const outboundMessageInfo = req.body;
     const userId = outboundMessageInfo.message.to[0].contact_id;
