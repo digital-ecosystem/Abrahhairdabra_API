@@ -44,6 +44,9 @@ app.post('/webhook', (req, res) => {
 
     tt = userPhone;
 
+    if (userPhone === "+4368181520584")
+        return res.status(200).send('Outbound message received');
+
     if (!userInfo[userId]) {
         userInfo[userId] = {
             messages: [],
