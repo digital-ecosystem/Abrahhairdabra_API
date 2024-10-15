@@ -49,7 +49,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
             }
         }
     } catch (error) {
-        console.error('Error searching record in Zoho CRM:', error);
+        console.error('Error searching record in Zoho CRM:', error.response.data);
     }
 
     // If no thread_id, create a new thread
@@ -68,39 +68,41 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                     }
                 });
             } catch (error) {
-                console.error('Error updating record in Zoho CRM:', error);
+                console.error('Error updating record in Zoho CRM:', error.response.data);
             }
         }
         else
         {
-            update_record.Phone = phone.toString();
+            phone =  phone.toString();
+            update_record.Phone = phone;
             const superchat_record = await getSuperchatRecord(superchat_contact_id);
             update_record.First_Name = superchat_record.first_name ?? 'unknown';
             update_record.Last_Name = superchat_record.last_name ?? 'unknown';
             try
             {
                 const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
-                headers: {
-                    'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
-                }
-            });
+                    headers: {
+                        'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
+                    }
+                });
+                console.log('Record created in Zoho CRM leads  with thread id :', thread_id);
             }
             catch (error)
             {
-                console.error('Error creating record in Zoho CRM:', error);
+                console.error('Error creating record in Zoho CRM 1:', error.response.data.data[0]);
             }
         }
     }
 
-
     // Update the thread with the new message
     let messageContent = null;
-    if (mg) {
+    if (mg)
+    {
         try {
             const response1 = await openai.beta.threads.messages.create(
                 thread_id,
                 { role: "user", content: mg }
-              );
+            );
             const message_id = response1.id;
 
             if (checker === 1)
@@ -196,7 +198,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
     return thread_id;
 }
 
-export async function putMessageInThreadAssistant(template_id, quickReplayBody, phone)
+
+export async function putMessageInThreadAssistant(template_id, quickReplayBody, phone, superchat_contact_id)
 {
     let record = null;
     let thread_id = null;
@@ -212,11 +215,10 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
             record = searchResponse.data.data;
             if (record && record.length > 0) {
                 thread_id = record[0].Thread_Id;
-                console.log('Thread ID in putMessageInThreadAssistant:', thread_id);
             }
         }
     } catch (error) {
-        console.error('Error searching record in Zoho CRM in putMessageInThreadAssistant:', error);
+        console.error('Error searching record in Zoho CRM in putMessageInThreadAssistant:', error.response.data);
     }
 
     // If no thread_id, create a new thread
@@ -240,27 +242,27 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
                         headers: {
                             'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
                         }});
-                }, 10000);
-                            
-                console.error('Error updating record in Zoho CRM in putMessageInThreadAssistant:', error);
+                }, 10000);        
+                console.error('Error updating record in Zoho CRM in putMessageInThreadAssistant:', error.response.data);
             }
         }
         else
         {
             update_record.Phone = phone;
-            update_record.First_Name = 'Unkonw';
-            update_record.Last_Name = 'Unkonw';
+            const superchat_record = await getSuperchatRecord(superchat_contact_id);
+            update_record.First_Name = superchat_record.first_name ?? 'unknown';
+            update_record.Last_Name = superchat_record.last_name ?? 'unknown';
             try
             {
                 const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
-                headers: {
-                    'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
-                }
-            });
+                    headers: {
+                        'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
+                    }
+                });
             }
             catch (error)
             {
-                console.error('Error creating record in Zoho CRM in putMessageInThreadAssistant:', error);
+                console.error('Error creating record in Zoho CRM in putMessageInThreadAssistant:', error.response.data);
             }
         }
     }
@@ -276,16 +278,12 @@ export async function putMessageInThreadAssistant(template_id, quickReplayBody, 
             const response1 = await openai.beta.threads.messages.create(
                 thread_id,
                 { role: "assistant", content: content_message }
-                );
+            );
+            console.log('Message was pushed to the thread: ', thread_id);
         } catch (error) {
             console.error('Error sending template message:', error);
         }
     }
-
-    const threadMessages = await openai.beta.threads.messages.list(thread_id);
-    const letMessage = threadMessages.data;
-    const messageContent = letMessage[0].content[0].text.value;
-    console.log('Last message should be from assistant has the value of the tempalte content:', messageContent);
 }
 
 async function getContentTemplateFromSuperchat(template_id)
@@ -303,23 +301,3 @@ async function getContentTemplateFromSuperchat(template_id)
         .catch(err => console.error(err));
 }
 
-/*let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
-const thread_id = "fgdfhghs";
-const update_record = { Thread_Id: thread_id };
-update_record.Phone = "+43681818335";
-update_record.First_Name =  'unknown';
-update_record.Last_Name =  'unknown';
-try
-{
-    const res = await axios.post(`${ZOHO_CRM_API_URL}Leads`, { data: [update_record] }, {
-    headers: {
-        'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
-    }
-});
-console.log(res);
-console.log("sss");
-}
-catch (error)
-{
-    console.error('Error creating record in Zoho CRM:', error);
-}*/

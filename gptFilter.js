@@ -65,17 +65,23 @@ export async function runGpt(contact_id, mg , phone) {
 
 export async function outboundMessageFilter(contact_id, phone, content) {
     const thread_id = await getThread(phone, contact_id);
-    const threadMessages = await openai.beta.threads.messages.list(thread_id);
-    const letMessage = threadMessages.data;
-    const messageContent = letMessage[0].content[0].text.value;
-
-
-    if (messageContent !== content)
+    if (!thread_id)
     {
         return true;
     }
-    else
+    const threadMessages = await openai.beta.threads.messages.list(thread_id);
+    const listMessage = threadMessages.data;
+    if (!listMessage[0].content[0])
+    {
+        return true;
+    }
+    const messageContent = listMessage[0].content[0].text.value;
+    if (messageContent.includes(content))
     {
         return false;
+    }
+    else
+    {
+        return true;
     }
 }

@@ -32,9 +32,8 @@ app.get('/', (req, res) => {
 let userInfo = {}; // To store user messages and timeouts
 
 
-let tt = null;
 
-app.post('/webhook', (req, res) => {
+app.post('/incoming', (req, res) => {
     const  response  = req.body;
 
     const userId = response.message.from.id;
@@ -42,14 +41,15 @@ app.post('/webhook', (req, res) => {
     const userPhone = response.message.from.identifier;
     const superchat_contact_id = response.message.from.id;
 
-    tt = userPhone;
+    // if (userPhone !== "+4368181520584")
+    //     return res.status(200).send('Outbound message received');
 
+    // delete this before push 
     if (!userInfo[userId]) {
         userInfo[userId] = {
             messages: [],
             quickReplayBody: null,
             timeout: null,
-            outbound: null,
             outboundReceived: false,
             messageType: null,
             template_id: null
@@ -62,47 +62,41 @@ app.post('/webhook', (req, res) => {
     userInfo[userId].superchat_contact_id = superchat_contact_id;
 
     // Clear any existing timeout
-    if (userInfo[userId].timeout || userInfo[userId].outbound)
+    if (userInfo[userId].timeout)
     {
         clearTimeout(userInfo[userId].timeout);
-        clearTimeout(userInfo[userId].outbound);
     }
     // Set a new timeout for 20 seconds
     userInfo[userId].timeout = setTimeout( async() =>
     {
         if(userInfo[userId] && userInfo[userId].messages && userInfo[userId].messages.length > 0)
         {
-            runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then(Istrue =>
+            runGpt(superchat_contact_id, await userInfo[userId].messages.join('\n'), userPhone).then( async (Istrue) =>
+            {
+                if (Istrue === true)
                 {
-                    if (Istrue === true)
+                    console.log("User is in processing");
+                    await processUserMessages(userId);
+                }
+                else
+                {
+                    console.log("User is blocked");
+                    if (userInfo[userId].outboundReceived && (userInfo[userId].template_id || userInfo[userId].quickReplayBody))
                     {
-                        console.log("User is in processing");
-                        processUserMessages(userId);
+                        const template_id = userInfo[userId].template_id;
+                        const quickReplayBody = userInfo[userId].quickReplayBody;
+                        putMessageInThreadAssistant(template_id, quickReplayBody, userPhone, superchat_contact_id);
+                        console.log(`Outbound message  received for user ${userId}`);
                     }
                     else
                     {
-                        console.log("User is blocked");
-                        userInfo[userId].outbound = setTimeout(() =>
-                        {
-                            if (userInfo[userId].outboundReceived && (userInfo[userId].template_id || userInfo[userId].quickReplayBody))
-                            {
-                                const template_id = userInfo[userId].template_id;
-                                const quickReplayBody = userInfo[userId].quickReplayBody;
-                                putMessageInThreadAssistant(template_id, quickReplayBody, userPhone);
-                                console.log("template id", userInfo[userId].template_id);
-                                console.log(`Outbound message  received for user ${userId}`);
-                            }
-                            else
-                            {
-                                console.log(`Outbound message not received for user ${userId}`);
-                            }
-                            delete userInfo[userId];
-                        }, 10000);
+                        console.log(`Outbound message not received for user ${userId}`);
                     }
-                    
-                }).catch(error => {
-                    console.error("Error fetching or processing contact record:", error);
-                });
+                }
+                delete userInfo[userId]; 
+            }).catch(error => {
+                console.error("Error fetching or processing contact record:", error);
+            });
         }
     }, 20000);
 
@@ -112,14 +106,15 @@ app.post('/webhook', (req, res) => {
 
 
 
-
-
-
-app.post('/outboundWebhook', async (req, res) => {
+app.post('/outgoing', async (req, res) => {
     const outboundMessageInfo = req.body;
     const userId = outboundMessageInfo.message.to[0].contact_id;
     const contentType = outboundMessageInfo.message.content.type;
     const phoneNummber = parseInt(outboundMessageInfo.message.to[0].identifier);
+
+
+    // if (phoneNummber !== 4368181520584)
+    //     return res.status(200).send('Outbound message received');
 
     if (userInfo[userId])
     {
@@ -135,27 +130,31 @@ app.post('/outboundWebhook', async (req, res) => {
             userInfo[userId].outboundReceived = true;
             userInfo[userId].messageType = contentType;
         }
-    }else if (await outboundMessageFilter(userId, phoneNummber, outboundMessageInfo.message.content.body))
+    }
+    else if (await outboundMessageFilter(userId, phoneNummber, outboundMessageInfo.message.content.body))
     {
+        const phoneSring = "+" + phoneNummber.toString();
+        const superchat_contact_id = outboundMessageInfo.message.to[0].contact_id;
         if (contentType === 'whats_app_template')
         {
             const template_id = outboundMessageInfo.message.content.template_id;
-            await putMessageInThreadAssistant(template_id, null, phoneNummber);
+            await putMessageInThreadAssistant(template_id, null, phoneSring, superchat_contact_id);
         }
         else if (contentType === 'whats_app_quick_reply')
         {
             const quickReplayBody = outboundMessageInfo.message.content.body;
-            await putMessageInThreadAssistant(null, quickReplayBody, phoneNummber);
+            await putMessageInThreadAssistant(null, quickReplayBody, phoneSring, superchat_contact_id);
         }
         else
         {
             const content = outboundMessageInfo.message.content.body;
-            await putMessageInThreadAssistant(null, content, phoneNummber);
+            await putMessageInThreadAssistant(null, content, phoneSring, superchat_contact_id);
             
         }
     }
     res.status(200).send('Outbound message received');
 });
+
 
 async function processUserMessages(userId) {
     const userData = userInfo[userId];
