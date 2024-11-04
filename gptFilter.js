@@ -12,8 +12,9 @@ const blockingLebels = [
     process.env.BLOCK_AI_LEBEL,
     process.env.VIP_KUNDE_LEBEL,
     process.env.BESTANDSKUNDE_LEBEL,
+    process.env.GESPIRRT_LEBEL,
 ];
-const gpt_lebel =           process.env.GPT_LEBEL;
+const gpt_lebel =  process.env.GPT_LEBEL;
 
 const openai = new OpenAI();
 
