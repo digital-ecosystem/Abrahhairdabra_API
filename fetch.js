@@ -130,7 +130,6 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         const service_id = args.service_id;
                                         console.log(date);
                                         availableSlots = await search_for_available_slots(date, service_id);
-                                        console.log(availableSlots);
                                         if ((availableSlots && availableSlots === 'Slots Not Available') || !availableSlots ||!availableSlots[0]) {
                                             availableSlots = 'no slots available';
                                         }else
