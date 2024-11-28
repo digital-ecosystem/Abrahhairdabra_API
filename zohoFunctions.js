@@ -22,7 +22,6 @@ const headers = {
 };
 
 export async function getThread(phone, contact_id) {
-  const OPENAI_API_URL = "https://api.openai.com/v1/";
   let record = null;
   let thread_id = null;
   let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
@@ -49,7 +48,7 @@ export async function getThread(phone, contact_id) {
   } catch (error) {
     console.error(
       "Error searching for record in Zoho CRM in getThread:",
-      error
+      error.response.data
     );
   }
   return thread_id;

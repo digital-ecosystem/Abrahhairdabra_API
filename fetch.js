@@ -89,7 +89,7 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
             }
             catch (error)
             {
-                console.error('Error creating record in Zoho CRM 1:', error.response.data.data[0]);
+                console.error('Error creating record in Zoho CRM 1:', error.response.data);
             }
         }
     }
@@ -130,7 +130,8 @@ export async function call_in_OpenAi(mg, phone, superchat_contact_id, checker) {
                                         const service_id = args.service_id;
                                         console.log(date);
                                         availableSlots = await search_for_available_slots(date, service_id);
-                                        if ((availableSlots && availableSlots === 'Slots Not Available') || !availableSlots[0]) {
+                                        console.log(availableSlots);
+                                        if ((availableSlots && availableSlots === 'Slots Not Available') || !availableSlots ||!availableSlots[0]) {
                                             availableSlots = 'no slots available';
                                         }else
                                         {

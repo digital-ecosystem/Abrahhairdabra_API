@@ -23,23 +23,16 @@ export async function generateZohoOauthToken() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
-
         const { access_token, expires_in } = response.data;
-
-
-        // Store the access token and its expiration time securely
-        // Example: Save to environment variables or secure storage
-        process.env.ZOHO_OAUTH_TOKEN = access_token;
-
         return access_token;
     } catch (error) {
         try {
             return setTimeout(generateZohoOauthToken, 3000);
         } catch (error) {
-            console.error('Error generating Zoho OAuth token:', error.response ? error.response.data : error.message);
+            console.error('Error two generating Zoho OAuth token:', error.response ? error.response.data : error.message);
+            return null;
         }
-        console.error('Error generating Zoho OAuth token:', error.response ? error.response.data : error.message);
-        throw error;
+        return null;
     }
 }
 

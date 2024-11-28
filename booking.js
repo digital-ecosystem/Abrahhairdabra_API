@@ -27,19 +27,25 @@ async function generateZohoOauthTokenForBooking() {
         });
 
         const { access_token, expires_in } = response.data;
-        process.env.ZOHO_OAUTH_TOKEN = access_token;
 
         return access_token;
     } catch (error) {
-        console.error('Error generating Zoho OAuth token:', error.response ? error.response.data : error.message);
-        throw error;
+        console.error('Error generating Zoho OAuth token:', error.response.data );
+        return null;
     }
 }
 
 export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
-    const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+    let ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+    if (!ZOHO_OAUTH_TOKEN) {
+        console.log('Waiting for Zoho OAuth token in the next try in the booking...');
+        ZOHO_OAUTH_TOKEN = await new Promise((resolve) =>{
+            setTimeout(async () => {
+                resolve(await generateZohoOauthTokenForBooking());
+            }, 10000);
+        } )
+    }
     staff_id = process.env.STAFF_ID;
-
     try {
         const url = `https://www.zohoapis.eu/bookings/v1/json/appointment`;
         const formDate = new FormData();
@@ -71,8 +77,20 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
 //book_appointment(null, 'bassem@gmail.com', 'bassem mahdi', null, null, null);
 
 export async function search_for_available_slots(date, service_id) {
-    const ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+    let ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+    if (!ZOHO_OAUTH_TOKEN) {
+        console.log('Waiting for Zoho OAuth token in the next try...');
+        ZOHO_OAUTH_TOKEN = await new Promise((resolve) =>{
+            setTimeout(async () => {
+                resolve(await generateZohoOauthTokenForBooking());
+            }, 10000);
+        } )
+    }
     const staff_id = process.env.STAFF_ID;
+    if (!ZOHO_OAUTH_TOKEN) {
+        console.error('Error generating Zoho OAuth token');
+        return null;
+    }
 
 
     try {
@@ -83,7 +101,12 @@ export async function search_for_available_slots(date, service_id) {
         });
         return searchResponse.data.response.returnvalue.data;
     } catch (error) {
-        console.error('Error searching record in Zoho CRM:', error);
-        throw error;
+        console.error('Error searching record in Zoho bookings:', error.response.data);
+        return null;
     }
 }
+
+
+//const d = await search_for_available_slots('18-12-2024', '165640000000050116');
+//console.log(d);
+

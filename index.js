@@ -41,8 +41,8 @@ app.post('/incoming', (req, res) => {
     const userPhone = response.message.from.identifier;
     const superchat_contact_id = response.message.from.id;
 
-    // if (userPhone !== "+4368181520584")
-    //     return res.status(200).send('Outbound message received');
+    if (userPhone !== "+4368181520584")
+        return res.status(200).send('Outbound message received');
 
     // delete this before push 
     if (!userInfo[userId]) {
