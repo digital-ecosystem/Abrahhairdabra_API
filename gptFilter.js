@@ -1,8 +1,7 @@
-import { getSuperchatRecord, getSuperchatConveration} from './superchatFunctions.js';
+import { getSuperchatRecord, getSuperchatConveration} from './src/api/superchat.js';
 import { config } from 'dotenv';
 import { call_in_OpenAi } from './fetch.js';
-import { putMessageInThreadAssistant } from './fetch.js'
-import { getThread} from './zohoFunctions.js';
+import { getThread } from './src/utils/superchat.js';
 import OpenAI from "openai";
 
 config();
@@ -65,7 +64,7 @@ export async function runGpt(contact_id, mg , phone) {
 
 
 export async function outboundMessageFilter(contact_id, phone, content) {
-    const thread_id = await getThread(phone, contact_id);
+    const thread_id = await getThread(contact_id);
     if (!thread_id)
     {
         return true;

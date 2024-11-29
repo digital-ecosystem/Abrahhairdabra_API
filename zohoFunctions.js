@@ -1,8 +1,5 @@
 import * as ZOHOCRMSDK from "@zohocrm/nodejs-sdk-6.0";
 import { config } from "dotenv";
-import { getSuperchatRecord } from "./superchatFunctions.js";
-import axios from "axios";
-import { generateZohoOauthToken } from "./generateZohoToken.js";
 import OpenAI from "openai";
 
 config();
@@ -21,35 +18,35 @@ const headers = {
   "OpenAI-Beta": "assistants=v2",
 };
 
-export async function getThread(phone, contact_id) {
-  let record = null;
-  let thread_id = null;
-  let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
-  try {
-    const searchResponse = await axios.get(
-      `${ZOHO_CRM_API_URL}Leads/search?phone=${phone}`,
-      {
-        headers: {
-          Authorization: `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`,
-        },
-      }
-    );
-    if (searchResponse) {
-      record = searchResponse.data.data;
-      if (record && record.length > 0) {
-        thread_id = record[0].Thread_Id;
-        return thread_id;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error(
-      "Error searching for record in Zoho CRM in getThread:",
-      error.response.data
-    );
-  }
-  return thread_id;
-}
+// export async function getThread(phone, contact_id) {
+//   let record = null;
+//   let thread_id = null;
+//   let ZOHO_OAUTH_TOKEN = await generateZohoOauthToken();
+//   try {
+//     const searchResponse = await axios.get(
+//       `${ZOHO_CRM_API_URL}Leads/search?phone=${phone}`,
+//       {
+//         headers: {
+//           Authorization: `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`,
+//         },
+//       }
+//     );
+//     if (searchResponse) {
+//       record = searchResponse.data.data;
+//       if (record && record.length > 0) {
+//         thread_id = record[0].Thread_Id;
+//         return thread_id;
+//       } else {
+//         return null;
+//       }
+//     } else {
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error(
+//       "Error searching for record in Zoho CRM in getThread:",
+//       error.response.data
+//     );
+//   }
+//   return thread_id;
+// }

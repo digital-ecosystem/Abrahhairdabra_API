@@ -98,7 +98,7 @@ app.post('/incoming', (req, res) => {
                 console.error("Error fetching or processing contact record:", error);
             });
         }
-    }, 20000);
+    }, 20000); 
 
 
     res.status(200).send('Message received');

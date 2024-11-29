@@ -1,7 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import OpenAI from "openai";
-import { getSuperchatRecord, sendMessage } from './superchatFunctions.js';
 
 dotenv.config();
 

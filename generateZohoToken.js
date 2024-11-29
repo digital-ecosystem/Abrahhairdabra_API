@@ -26,13 +26,17 @@ export async function generateZohoOauthToken() {
         const { access_token, expires_in } = response.data;
         return access_token;
     } catch (error) {
-        try {
-            return setTimeout(generateZohoOauthToken, 3000);
-        } catch (error) {
-            console.error('Error two generating Zoho OAuth token:', error.response ? error.response.data : error.message);
-            return null;
+        console.error('Error generating Zoho OAuth token:',error.response.data);
+        if (error.response.data.status === 'failure')
+        {
+                console.log('Waiting for Zoho OAuth token in the next try in the booking...');
+                const response2 = await new Promise((resolve) =>{
+                    setTimeout(async () => {
+                        resolve(await generateZohoOauthToken());
+                    }, 10000);
+                });
+                return response2;
         }
         return null;
     }
 }
-

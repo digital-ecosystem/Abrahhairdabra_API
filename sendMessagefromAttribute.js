@@ -2,7 +2,7 @@ import {config} from 'dotenv';
 import { generateZohoOauthToken } from './generateZohoToken.js';
 import OpenAI from "openai";
 import axios from 'axios';
-import { sendMessage } from './superchatFunctions.js';
+import { sendMessage } from './src/api/superchat.js';
 
 config();
 
@@ -67,7 +67,7 @@ export async function runThreadAndSend(contact)
         }
 
     } catch (error) {
-        console.error('Error searching record in Zoho CRM in putMessageInThreadAssistant:', error);
+        console.error('Error searching record in Zoho CRM in putMessageInThreadAssistant run thread:', error.response.data);
     }
 
 }
