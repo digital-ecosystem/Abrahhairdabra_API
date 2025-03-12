@@ -42,7 +42,7 @@ export async function book_appointment(data, phone) {
         await generateZohoOauthTokenForBooking();
     }
     const args = JSON.parse(data);
-    if (!args || args.date || args.full_name || args.email) {
+    if (!args || !args.date || !args.full_name || !args.email) {
         return 'either date or full name or email is missing';	
     } else if (!ZOHO_OAUTH_TOKEN) {
         console.error('Error generating Zoho OAuth token in booking function');
