@@ -71,13 +71,15 @@ export async function book_appointment(data, phone) {
             }
         });
         let bookingResponse = book_appointment.data.response;
+        let returnvalue = "";
         if (bookingResponse && bookingResponse.status === 'success') {
-            bookingResponse = 'appointment booked successfully';
+            returnvalue = 'appointment booked successfully';
         }
         else
         {
-            bookingResponse = 'appointment not booked';
+            returnvalue = 'appointment not booked';
         }
+        return returnvalue;
     } catch (error) {
         console.error('Error booking appointment in Zoho CRM:', error);
         return 'an error occurred while booking the appointment';
