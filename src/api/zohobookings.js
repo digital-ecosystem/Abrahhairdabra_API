@@ -70,7 +70,7 @@ export async function book_appointment(data, phone) {
                 'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
             }
         });
-        const bookingResponse = book_appointment.data.response;
+        let bookingResponse = book_appointment.data.response;
         if (bookingResponse.status === 'success') {
             bookingResponse = 'appointment booked successfully';
         }
