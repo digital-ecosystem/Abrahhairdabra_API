@@ -1,9 +1,4 @@
-import { config } from 'dotenv';
-
-config();
-
-const SUPERCHAT_API_KEY = process.env.SUPERCHAT_API_KEY;
-const SUPERCHATCHANNEL_ID = process.env.SUPERCHATCHANNEL_ID;
+import { SUPERCHAT_API_KEY, SUPERCHATCHANNEL_ID } from '../config/index.js';
 
 export async function getSuperchatRecord(contact_id) {
     const options = {

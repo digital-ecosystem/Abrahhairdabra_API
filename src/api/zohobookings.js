@@ -1,6 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
-import OpenAI from "openai";
+
 
 dotenv.config();
 
@@ -10,7 +10,9 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REFRESH_TOKEN_FOR_BOOKING = process.env.REFRESH_TOKEN_FOR_BOOKING; // Store this refresh token securely
 
-async function generateZohoOauthTokenForBooking() {
+let ZOHO_OAUTH_TOKEN = null;
+
+export async function generateZohoOauthTokenForBooking() {
     try {
         const response = await axios.post(ZOHO_TOKEN_URL, null, {
             params: {
@@ -26,25 +28,28 @@ async function generateZohoOauthTokenForBooking() {
         });
 
         const { access_token, expires_in } = response.data;
-
-        return access_token;
+        ZOHO_OAUTH_TOKEN = access_token;
+        setTimeout(() => {
+            ZOHO_OAUTH_TOKEN = null;
+          }, expires_in * 1000);          
     } catch (error) {
-        console.error('Error generating Zoho OAuth token:', error.response.data );
-        return null;
+        console.error('Error generating Zoho OAuth token:', error.response.data);
     }
 }
 
-export async function book_appointment(date, email, full_name, phone, staff_id, service_id) {
-    let ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+export async function book_appointment(data, phone) {
     if (!ZOHO_OAUTH_TOKEN) {
-        console.log('Waiting for Zoho OAuth token in the next try in the booking...');
-        ZOHO_OAUTH_TOKEN = await new Promise((resolve) =>{
-            setTimeout(async () => {
-                resolve(await generateZohoOauthTokenForBooking());
-            }, 10000);
-        } )
+        await generateZohoOauthTokenForBooking();
     }
-    staff_id = process.env.STAFF_ID;
+    const args = JSON.parse(data);
+    if (!args || args.date || args.full_name || args.email) {
+        return 'either date or full name or email is missing';	
+    } else if (!ZOHO_OAUTH_TOKEN) {
+        console.error('Error generating Zoho OAuth token in booking function');
+        return "something went wrong, please try again in 5 minutes";
+    }
+    const { date, full_name, email, service_id } = args;
+    const staff_id = process.env.STAFF_ID;
     try {
         const url = `https://www.zohoapis.eu/bookings/v1/json/appointment`;
         const formDate = new FormData();
@@ -65,9 +70,17 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
                 'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
             }
         });
-        return book_appointment.data.response;
+        const bookingResponse = book_appointment.data.response;
+        if (bookingResponse.status === 'success') {
+            bookingResponse = 'appointment booked successfully';
+        }
+        else
+        {
+            bookingResponse = 'appointment not booked';
+        }
     } catch (error) {
         console.error('Error booking appointment in Zoho CRM:', error);
+        return 'an error occurred while booking the appointment';
     }
 
 }
@@ -75,37 +88,40 @@ export async function book_appointment(date, email, full_name, phone, staff_id, 
 
 //book_appointment(null, 'bassem@gmail.com', 'bassem mahdi', null, null, null);
 
-export async function search_for_available_slots(date, service_id) {
-    let ZOHO_OAUTH_TOKEN = await generateZohoOauthTokenForBooking();
+export async function search_for_available_slots(data) {
+    const args = JSON.parse(data);
     if (!ZOHO_OAUTH_TOKEN) {
-        console.log('Waiting for Zoho OAuth token in the next try...');
-        ZOHO_OAUTH_TOKEN = await new Promise((resolve) =>{
-            setTimeout(async () => {
-                resolve(await generateZohoOauthTokenForBooking());
-            }, 10000);
-        } )
+        await generateZohoOauthTokenForBooking();
     }
+    if (!ZOHO_OAUTH_TOKEN) {
+        console.error('Error generating Zoho OAuth token in search function');
+        return "something went wrong, please try again in 5 minutes";
+    } else if (!args || !args.date || !args.service_id) {
+        return 'either date or service id is missing';
+    }
+    let availableSlots = null;
     const staff_id = process.env.STAFF_ID;
-    if (!ZOHO_OAUTH_TOKEN) {
-        console.error('Error generating Zoho OAuth token');
-        return null;
-    }
-
-
+    const date = args.date;
+    const service_id = args.service_id;
     try {
         const searchResponse = await axios.get(`https://www.zohoapis.eu/bookings/v1/json/availableslots?service_id=${service_id}&staff_id=${staff_id}&selected_date=${date}`, {
             headers: {
                 'Authorization': `Zoho-oauthtoken ${ZOHO_OAUTH_TOKEN}`
             }
         });
-        return searchResponse.data.response.returnvalue.data;
+        availableSlots = searchResponse.data.response.returnvalue.data;
+        if ((availableSlots && availableSlots === 'Slots Not Available') || !availableSlots ||!availableSlots[0]) {
+            return 'no slots available';
+        } else{
+            if (!Array.isArray(availableSlots)) {
+                availableSlots = [availableSlots];
+            }
+            return availableSlots.join(', ');
+        }
     } catch (error) {
         console.error('Error searching record in Zoho bookings:', error.response.data);
-        return null;
+        return 'an error occurred while searching for available slots';
     }
 }
 
-
-//const d = await search_for_available_slots('18-12-2024', '165640000000050116');
-//console.log(d);
 
