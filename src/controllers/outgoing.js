@@ -7,9 +7,14 @@ export const ProcessData = async (req, res) => {
 	const userId = outboundMessageInfo.message.to[0].contact_id;
 	const contentType = outboundMessageInfo.message.content.type;
 	const phoneNummber = parseInt(outboundMessageInfo.message.to[0].identifier);
+	const userPhoneString = outboundMessageInfo.message.to[0].identifier;
 	res.status(200).send("Outbound message received");
 
-	if ((phoneNummber !== "+4368181520584" && isDev) || (phoneNummber === "+4368181520584" && !isDev)) {
+	if (
+		(userPhoneString !== "+4368181520584" && isDev) 
+		|| 
+		(userPhoneString === "+4368181520584" && !isDev)
+	) {
 		return;
 	}
 	if (userInfo[userId]) {
