@@ -10,7 +10,7 @@ import { openai, OPENAI_ASSISTANT } from '../config/index.js';
 
 export async function generateAIResponse(mg, phone, superchat_contact_id, checker) {
     let thread_id = null;
-
+    let run = null;
     // search for the thread in superchat
     try {
         const getTHread = await getThread(superchat_contact_id);
@@ -34,7 +34,7 @@ export async function generateAIResponse(mg, phone, superchat_contact_id, checke
         try {
             const response1 = await openai.beta.threads.messages.create(thread_id, { role: "user", content: mg });
             if (checker === 1) {
-                let run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
+                run = await openai.beta.threads.runs.createAndPoll(thread_id, { assistant_id: OPENAI_ASSISTANT });
                 while (run.status !== 'completed') {
                     if (run.status === 'requires_action') {
                         if (run.required_action && run.required_action.submit_tool_outputs && run.required_action.submit_tool_outputs.tool_calls) {

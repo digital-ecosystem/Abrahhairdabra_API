@@ -71,7 +71,7 @@ export async function book_appointment(data, phone) {
             }
         });
         let bookingResponse = book_appointment.data.response;
-        if (bookingResponse.status === 'success') {
+        if (bookingResponse && bookingResponse.status === 'success') {
             bookingResponse = 'appointment booked successfully';
         }
         else

@@ -9,10 +9,9 @@ export const ProcessData = async (req, res) => {
 	const phoneNummber = parseInt(outboundMessageInfo.message.to[0].identifier);
 	res.status(200).send("Outbound message received");
 
-	if ((!phoneNummber === "+4368181520584" && isDev) || (phoneNummber === "+4368181520584" && !isDev)) {
+	if ((phoneNummber !== "+4368181520584" && isDev) || (phoneNummber === "+4368181520584" && !isDev)) {
 		return;
 	}
-
 	if (userInfo[userId]) {
 		if (contentType === "whats_app_template") {
 			userInfo[userId].template_id =

@@ -11,7 +11,7 @@ export const ProcessData = async (req, res) => {
 	const userPhone = response.message.from.identifier;
 	const superchat_contact_id = response.message.from.id;
 
-	if ((!userPhone === "+4368181520584" && isDev) || (userPhone === "+4368181520584" && !isDev)) {
+	if ((userPhone !== "+4368181520584" && isDev) || (userPhone === "+4368181520584" && !isDev)) {
 		return res.status(200).send('Outbound message received');
 	}
 	console.log(`Incoming message received from user ${userId}:`, message);
