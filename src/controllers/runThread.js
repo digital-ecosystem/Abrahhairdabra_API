@@ -33,6 +33,8 @@ export async function runThreadAndSend(contact)
     const OPENAI_ASSISTANT = process.env.OPENAI_ASSISTANT;
     let phone = null;
     let messageContent = null;
+    let polls = 0;
+    const MAX_POLLS = 50;
 
     contact.handles.forEach(handle => {
         if (handle.type === 'phone') {
@@ -67,8 +69,9 @@ export async function runThreadAndSend(contact)
                     { assistant_id: OPENAI_ASSISTANT }
                     );
                 var run_status = run.status;
-                while (run_status !== 'completed')
+                while (run_status !== 'completed' && polls < MAX_POLLS)
                 {
+                    polls++;
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     run_status = (await openai.beta.threads.runs.retrieve(thread_id, run.id)).status;
                 }
