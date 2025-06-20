@@ -65,6 +65,7 @@ export async function generateAIResponse(mg, phone, superchat_contact_id, checke
                         }
                         await new Promise(resolve => setTimeout(resolve, 700));
                         polls++;
+                        console.log("Polling for run status...", polls);
                         run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
                     }
                 }
