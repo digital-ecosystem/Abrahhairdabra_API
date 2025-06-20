@@ -11,7 +11,7 @@ import { openai, OPENAI_ASSISTANT } from '../config/index.js';
 export async function generateAIResponse(mg, phone, superchat_contact_id, checker) {
     let thread_id = null;
     let run = null;
-    const MAX_POLLS = 50;
+    const MAX_POLLS = 10;
     let polls = 0;
     // search for the thread in superchat
     try {
@@ -63,7 +63,7 @@ export async function generateAIResponse(mg, phone, superchat_contact_id, checke
                                 console.log("No tool outputs to submit.");
                             }
                         }
-                        await new Promise(resolve => setTimeout(resolve, 300));
+                        await new Promise(resolve => setTimeout(resolve, 700));
                         polls++;
                         run = await openai.beta.threads.runs.retrieve(thread_id, run.id);
                     }

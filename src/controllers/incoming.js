@@ -65,6 +65,7 @@ export const ProcessData = async (req, res) => {
 					}
 					else {
 						console.log(`Outbound message not received for user ${userId}`);
+						delete userInfo[userId];
 					}
 				}
 			}).catch(error => {

@@ -34,7 +34,7 @@ export async function runThreadAndSend(contact)
     let phone = null;
     let messageContent = null;
     let polls = 0;
-    const MAX_POLLS = 50;
+    const MAX_POLLS = 10;
 
     contact.handles.forEach(handle => {
         if (handle.type === 'phone') {
