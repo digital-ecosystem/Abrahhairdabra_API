@@ -82,7 +82,7 @@ export const ProcessData = async (req, res) => {
   // If the user is already in processing, return
   if (userInfo[userId].processing) {
     console.log(`User ${userId} is already in processing`);
-    return res.status(200).send("Message received");
+    return;
   }
 
   // Clear any existing timeout
@@ -90,7 +90,6 @@ export const ProcessData = async (req, res) => {
     clearTimeout(userInfo[userId].timeout);
   }
 
-  res.status(200).send("Message received");
   // Set a new timeout for 10 seconds
   userInfo[userId].timeout = setTimeout(async () => {
     if (
