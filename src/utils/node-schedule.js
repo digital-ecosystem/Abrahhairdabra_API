@@ -20,7 +20,11 @@ async function followUp(message) {
   const response = await openai.chat.completions.create({
     model: "gpt-4.1-mini",
     messages: [
-      { role: "system", content: "You are a helpful assistant, the user didn't respond to the messages and I want you to follow up with them." },
+      { role: "system", content: `
+        You are a helpful assistant, the user didn't respond to the messages. you should follow up with them.
+        For the followup it's crucial that you don't become repetetive for the followup. No generic things, no pressure, just a friendly casual and kind reference back to what the user told you before, connected to their goals, their original reason for contacting us and what moves them
+        `
+      },
       { role: "user", content: message }
     ],
     modalities: ["text"],

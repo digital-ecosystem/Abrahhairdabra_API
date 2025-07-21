@@ -23,44 +23,6 @@ export const ProcessData = async (req, res) => {
     message,
     createdAt
   );
-  if (createdAt && message) {
-    const messageDate = new Date(createdAt);
-    // create three tasks, after 10 minute, after one hour and after 23 hours
-    const taskTen = new Date(messageDate.getTime() + 1000 * 60 * 10);
-    const taskHour = new Date(messageDate.getTime() + 1000 * 60 * 60);
-    const taskDay = new Date(messageDate.getTime() + 1000 * 60 * 60 * 23);
-
-    try {
-      await Promise.all([
-        scheduleAt(
-          `message-${userId}-${taskTen.getTime()}`,
-          taskTen,
-          userId,
-          async () => {
-            await task(userId);
-          }
-        ),
-        scheduleAt(
-          `message-${userId}-${taskHour.getTime()}`,
-          taskHour,
-          userId,
-          async () => {
-            await task(userId);
-          }
-        ),
-        scheduleAt(
-          `message-${userId}-${taskDay.getTime()}`,
-          taskDay,
-          userId,
-          async () => {
-            await task(userId);
-          }
-        ),
-      ]);
-    } catch (error) {
-      console.error("Error scheduling tasks:", error);
-    }
-  }
   res.status(200).send("Message received");
   if (!userInfo[userId]) {
     userInfo[userId] = {
@@ -105,6 +67,46 @@ export const ProcessData = async (req, res) => {
         .then(async (Istrue) => {
           if (Istrue === true) {
             console.log("User is in processing");
+            if (createdAt && message) {
+              const messageDate = new Date(createdAt);
+              // create three tasks, after 10 minute, after one hour and after 23 hours
+              const taskTen = new Date(messageDate.getTime() + 3000);
+              const taskHour = new Date(messageDate.getTime() + 1000 * 60 * 60);
+              const taskDay = new Date(
+                messageDate.getTime() + 1000 * 60 * 60 * 23
+              );
+
+              try {
+                await Promise.all([
+                  scheduleAt(
+                    `message-${userId}-${taskTen.getTime()}`,
+                    taskTen,
+                    userId,
+                    async () => {
+                      await task(userId);
+                    }
+                  ),
+                  scheduleAt(
+                    `message-${userId}-${taskHour.getTime()}`,
+                    taskHour,
+                    userId,
+                    async () => {
+                      await task(userId);
+                    }
+                  ),
+                  scheduleAt(
+                    `message-${userId}-${taskDay.getTime()}`,
+                    taskDay,
+                    userId,
+                    async () => {
+                      await task(userId);
+                    }
+                  ),
+                ]);
+              } catch (error) {
+                console.error("Error scheduling tasks:", error);
+              }
+            }
             await processUserMessages(userId);
             delete userInfo[userId];
           } else {
