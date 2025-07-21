@@ -8,9 +8,13 @@ const ZOHO_TOKEN_URL = 'https://accounts.zoho.eu/oauth/v2/token';
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
-const REFRESH_TOKEN_FOR_BOOKING = process.env.REFRESH_TOKEN_FOR_BOOKING; // Store this refresh token securely
+const REFRESH_TOKEN_FOR_BOOKING = process.env.REFRESH_TOKEN_FOR_BOOKING;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN; 
 
 let ZOHO_OAUTH_TOKEN = null;
+let ZOHO_OAUTH_TOKEN_CRM = null;
+
+
 
 export async function generateZohoOauthTokenForBooking() {
     try {
@@ -28,6 +32,7 @@ export async function generateZohoOauthTokenForBooking() {
         });
 
         const { access_token, expires_in } = response.data;
+        console.log('Zoho OAuth token generated successfully:', response.data);
         ZOHO_OAUTH_TOKEN = access_token;
         setTimeout(() => {
             ZOHO_OAUTH_TOKEN = null;
@@ -36,6 +41,35 @@ export async function generateZohoOauthTokenForBooking() {
         console.error('Error generating Zoho OAuth token:', error.response.data);
     }
 }
+
+
+export async function generateZohoOauthTokenForCRM() {
+    try {
+        const response = await axios.post(ZOHO_TOKEN_URL, null, {
+            params: {
+                client_id: CLIENT_ID,
+                client_secret: CLIENT_SECRET,
+                redirect_uri: REDIRECT_URI,
+                refresh_token: REFRESH_TOKEN,
+                grant_type: 'refresh_token'
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        const { access_token, expires_in } = response.data;
+        console.log('Zoho OAuth token generated successfully:', response.data);
+        ZOHO_OAUTH_TOKEN_CRM = access_token;
+        setTimeout(() => {
+            ZOHO_OAUTH_TOKEN_CRM = null;
+          }, expires_in * 1000);          
+    } catch (error) {
+        console.error('Error generating Zoho OAuth token:', error.response.data);
+    }
+}
+//await generateZohoOauthTokenForCRM();
+//console.log('Zoho OAuth token generated:', ZOHO_OAUTH_TOKEN);
 
 export async function book_appointment(data, phone) {
     if (!ZOHO_OAUTH_TOKEN) {
@@ -127,3 +161,10 @@ export async function search_for_available_slots(data) {
 }
 
 
+
+// const data = JSON.stringify({
+//     date: '18-07-2025',
+//     service_id: '165640000000050116'
+// });
+// const res = await search_for_available_slots(data)
+// console.log('Available slots:', res);

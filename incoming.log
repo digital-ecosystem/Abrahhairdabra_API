@@ -1,0 +1,26 @@
+{
+  "id": "pe_5cwzssRAWSR4GECtFe24V",
+  "message": {
+    "id": "ms_uOXQXsup6v7ZoZxBrAAum",
+    "status": "received",
+    "conversation_id": "cv_4mSL24WqUG2suLSp29vZh",
+    "in_reply_to": null,
+    "content": {
+      "body": "klj",
+      "type": "text"
+    },
+    "to": {
+      "channel_id": "mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "from": {
+      "id": "ct_IJQAwPF4X4ucfKDDAnssc",
+      "identifier": "+4368181520584",
+      "url": "/contacts/ct_IJQAwPF4X4ucfKDDAnssc"
+    },
+    "created_at": "2025-07-14T14:20:05.117014Z",
+    "updated_at": "2025-07-14T14:20:05.117014Z",
+    "direction": "inbound",
+    "url": "/messages/ms_uOXQXsup6v7ZoZxBrAAum"
+  },
+  "event": "message_inbound"
+}
