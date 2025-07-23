@@ -1,0 +1,703 @@
+[
+  {
+    "id": "cv_eVfltqnznz1SM3xBr8Oqr",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_X0B3mHBD7I6usZk2RXYAE",
+        "name": "Erneute KA. läuft",
+        "url": "/labels/la_X0B3mHBD7I6usZk2RXYAE"
+      },
+      {
+        "id": "la_AYSy54BjEmtA1YeewWysq",
+        "name": "GPT",
+        "url": "/labels/la_AYSy54BjEmtA1YeewWysq"
+      },
+      {
+        "id": "la_zXyXdRSzYwYpzPi5qzo2h",
+        "name": "Facebook IG paid",
+        "url": "/labels/la_zXyXdRSzYwYpzPi5qzo2h"
+      },
+      {
+        "id": "la_r7Uw1BDQ7ugFZcd92239J",
+        "name": "Chance",
+        "url": "/labels/la_r7Uw1BDQ7ugFZcd92239J"
+      }
+    ],
+    "assigned_users": [
+      {
+        "id": "us_RIfdxQXyT147DflfvkVJo",
+        "email": "michael@abrahairdabra.com",
+        "url": "/users/us_RIfdxQXyT147DflfvkVJo"
+      }
+    ],
+    "contacts": [
+      {
+        "id": "ct_3K1ytbY751V1ffW3U1TEa",
+        "url": "/contacts/ct_3K1ytbY751V1ffW3U1TEa"
+      }
+    ],
+    "snoozed_until": "2024-01-26T16:20:14.370Z",
+    "time_window": {
+      "state": "closed",
+      "open_until": "2025-03-31T12:03:03Z"
+    },
+    "url": "/conversations/cv_eVfltqnznz1SM3xBr8Oqr",
+    "thread_id": "thread_FhsyES3LMl6SVlcbYiIQXlKu"
+  },
+  {
+    "id": "cv_7slnSjHgmwagFY96mZFuL",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_AYSy54BjEmtA1YeewWysq",
+        "name": "GPT",
+        "url": "/labels/la_AYSy54BjEmtA1YeewWysq"
+      },
+      {
+        "id": "la_X0B3mHBD7I6usZk2RXYAE",
+        "name": "Erneute KA. läuft",
+        "url": "/labels/la_X0B3mHBD7I6usZk2RXYAE"
+      },
+      {
+        "id": "la_eRQmJcolPP4OHeoSAyrVV",
+        "name": "Erneute Kontaktaufnahme",
+        "url": "/labels/la_eRQmJcolPP4OHeoSAyrVV"
+      },
+      {
+        "id": "la_3qLeW4z1apjJ14ewUg6xf",
+        "name": "Erneute K.A. durchgelaufen",
+        "url": "/labels/la_3qLeW4z1apjJ14ewUg6xf"
+      }
+    ],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_4OEAm5xEelOyYbyVF98az",
+        "url": "/contacts/ct_4OEAm5xEelOyYbyVF98az"
+      }
+    ],
+    "snoozed_until": "2024-10-29T09:36:27.379Z",
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-09-02T16:58:52Z"
+    },
+    "url": "/conversations/cv_7slnSjHgmwagFY96mZFuL",
+    "thread_id": "thread_OkEjOAnYKzdF71Enq5OtGCTG"
+  },
+  {
+    "id": "cv_zMODQxYmtXjRzE0Xuv7FT",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_5GfeuJArTfv8qYC6jaIYD",
+        "url": "/contacts/ct_5GfeuJArTfv8qYC6jaIYD"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:06.228600Z"
+    },
+    "url": "/conversations/cv_zMODQxYmtXjRzE0Xuv7FT",
+    "thread_id": null
+  },
+  {
+    "id": "cv_WGpEhQwCf4tuoYkC5BuMe",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_toFNpqmwkcGPMfoZkw6o4",
+        "url": "/contacts/ct_toFNpqmwkcGPMfoZkw6o4"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:06.541375Z"
+    },
+    "url": "/conversations/cv_WGpEhQwCf4tuoYkC5BuMe",
+    "thread_id": null
+  },
+  {
+    "id": "cv_1gn3FaF6EZ3z9oGOohJ0n",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_JVERJikUlmXcIbVaJ9a9Q",
+        "url": "/contacts/ct_JVERJikUlmXcIbVaJ9a9Q"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:06.775302Z"
+    },
+    "url": "/conversations/cv_1gn3FaF6EZ3z9oGOohJ0n",
+    "thread_id": null
+  },
+  {
+    "id": "cv_dfmKCtVdvUaW0lT2bn2P9",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_IuEiJqNeyw3po9ccJFECA",
+        "url": "/contacts/ct_IuEiJqNeyw3po9ccJFECA"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:07.063151Z"
+    },
+    "url": "/conversations/cv_dfmKCtVdvUaW0lT2bn2P9",
+    "thread_id": null
+  },
+  {
+    "id": "cv_Zpr5CiUk9GvEuOiTrMDYH",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_Rq5ndw8KbWO4iVPqEIL6f",
+        "url": "/contacts/ct_Rq5ndw8KbWO4iVPqEIL6f"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:07.326992Z"
+    },
+    "url": "/conversations/cv_Zpr5CiUk9GvEuOiTrMDYH",
+    "thread_id": null
+  },
+  {
+    "id": "cv_ZMCiFhm1bhijq2b3bFLTz",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_r7Uw1BDQ7ugFZcd92239J",
+        "name": "Chance",
+        "url": "/labels/la_r7Uw1BDQ7ugFZcd92239J"
+      }
+    ],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_62hpCftqvaLpwv5tMbFB0",
+        "url": "/contacts/ct_62hpCftqvaLpwv5tMbFB0"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:07.571215Z"
+    },
+    "url": "/conversations/cv_ZMCiFhm1bhijq2b3bFLTz",
+    "thread_id": null
+  },
+  {
+    "id": "cv_8JIrIbVT7YLy4hENorcOe",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_tKF44Pc4Tcqgc5Hb5JyQJ",
+        "url": "/contacts/ct_tKF44Pc4Tcqgc5Hb5JyQJ"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:07.806442Z"
+    },
+    "url": "/conversations/cv_8JIrIbVT7YLy4hENorcOe",
+    "thread_id": null
+  },
+  {
+    "id": "cv_CMenNs8ue1mFhk6SVTV8l",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_c8lKryN4CmEoanXJBVFdU",
+        "url": "/contacts/ct_c8lKryN4CmEoanXJBVFdU"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:08.098333Z"
+    },
+    "url": "/conversations/cv_CMenNs8ue1mFhk6SVTV8l",
+    "thread_id": null
+  },
+  {
+    "id": "cv_frls452tFSyTsiQ54oADu",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_Yc10FlZNJ8KUugqiL2X9x",
+        "url": "/contacts/ct_Yc10FlZNJ8KUugqiL2X9x"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:08.369441Z"
+    },
+    "url": "/conversations/cv_frls452tFSyTsiQ54oADu",
+    "thread_id": null
+  },
+  {
+    "id": "cv_I9tlbygEFHj6lvY4qqmbA",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_r7Uw1BDQ7ugFZcd92239J",
+        "name": "Chance",
+        "url": "/labels/la_r7Uw1BDQ7ugFZcd92239J"
+      }
+    ],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_xqBh1UlUfXkrYTXSNNy7Y",
+        "url": "/contacts/ct_xqBh1UlUfXkrYTXSNNy7Y"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:09.687392Z"
+    },
+    "url": "/conversations/cv_I9tlbygEFHj6lvY4qqmbA",
+    "thread_id": null
+  },
+  {
+    "id": "cv_ak0krYM3d29xhaXNEB1wh",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_aKLHH4nytEeGAF5QHgvih",
+        "url": "/contacts/ct_aKLHH4nytEeGAF5QHgvih"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:09.941274Z"
+    },
+    "url": "/conversations/cv_ak0krYM3d29xhaXNEB1wh",
+    "thread_id": null
+  },
+  {
+    "id": "cv_d9OslqXWl9Hzhnxp2NmXR",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_btb98xpYbSXbJS3D8HLYe",
+        "url": "/contacts/ct_btb98xpYbSXbJS3D8HLYe"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:10.507465Z"
+    },
+    "url": "/conversations/cv_d9OslqXWl9Hzhnxp2NmXR",
+    "thread_id": null
+  },
+  {
+    "id": "cv_zQsOtotFU9TJ3Phe9uHaJ",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_Y5dZGySUPOU3blRBGOI65",
+        "url": "/contacts/ct_Y5dZGySUPOU3blRBGOI65"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:10.768369Z"
+    },
+    "url": "/conversations/cv_zQsOtotFU9TJ3Phe9uHaJ",
+    "thread_id": null
+  },
+  {
+    "id": "cv_TSyOw1gGHby62BGIFnbq6",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_Lo15dovdIq4iDvjiWjSQq",
+        "url": "/contacts/ct_Lo15dovdIq4iDvjiWjSQq"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-25T19:28:11.237460Z"
+    },
+    "url": "/conversations/cv_TSyOw1gGHby62BGIFnbq6",
+    "thread_id": null
+  },
+  {
+    "id": "cv_JEZtJrhGD6HmdxB9uwRMA",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_AYSy54BjEmtA1YeewWysq",
+        "name": "GPT",
+        "url": "/labels/la_AYSy54BjEmtA1YeewWysq"
+      },
+      {
+        "id": "la_eRQmJcolPP4OHeoSAyrVV",
+        "name": "Erneute Kontaktaufnahme",
+        "url": "/labels/la_eRQmJcolPP4OHeoSAyrVV"
+      },
+      {
+        "id": "la_3qLeW4z1apjJ14ewUg6xf",
+        "name": "Erneute K.A. durchgelaufen",
+        "url": "/labels/la_3qLeW4z1apjJ14ewUg6xf"
+      }
+    ],
+    "assigned_users": [
+      {
+        "id": "us_RIfdxQXyT147DflfvkVJo",
+        "email": "michael@abrahairdabra.com",
+        "url": "/users/us_RIfdxQXyT147DflfvkVJo"
+      }
+    ],
+    "contacts": [
+      {
+        "id": "ct_eP3llguvkEhsBA2pvbFkX",
+        "url": "/contacts/ct_eP3llguvkEhsBA2pvbFkX"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-26T16:23:09.824162Z"
+    },
+    "url": "/conversations/cv_JEZtJrhGD6HmdxB9uwRMA",
+    "thread_id": "thread_C9aOhgfExgqqfJ1EYj8hgZch"
+  },
+  {
+    "id": "cv_QOitzUAkqixE5VniQKb71",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_AYSy54BjEmtA1YeewWysq",
+        "name": "GPT",
+        "url": "/labels/la_AYSy54BjEmtA1YeewWysq"
+      },
+      {
+        "id": "la_eRQmJcolPP4OHeoSAyrVV",
+        "name": "Erneute Kontaktaufnahme",
+        "url": "/labels/la_eRQmJcolPP4OHeoSAyrVV"
+      },
+      {
+        "id": "la_3qLeW4z1apjJ14ewUg6xf",
+        "name": "Erneute K.A. durchgelaufen",
+        "url": "/labels/la_3qLeW4z1apjJ14ewUg6xf"
+      }
+    ],
+    "assigned_users": [
+      {
+        "id": "us_5W0mWSo8q1RHkxjxGydvR",
+        "email": "office@abrahairdabra.com",
+        "url": "/users/us_5W0mWSo8q1RHkxjxGydvR"
+      }
+    ],
+    "contacts": [
+      {
+        "id": "ct_MUOlMHqOjMKgkbWFpqsGX",
+        "url": "/contacts/ct_MUOlMHqOjMKgkbWFpqsGX"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-01-30T09:29:23Z"
+    },
+    "url": "/conversations/cv_QOitzUAkqixE5VniQKb71",
+    "thread_id": "thread_dfy0WSfN0qpF5amUQNV6Mh2F"
+  },
+  {
+    "id": "cv_UhDlPe79EHYm41SewkRZL",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [],
+    "assigned_users": [],
+    "contacts": [
+      {
+        "id": "ct_YV35MNiSg9ApkTio5WkLA",
+        "url": "/contacts/ct_YV35MNiSg9ApkTio5WkLA"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2024-02-01T08:39:27Z"
+    },
+    "url": "/conversations/cv_UhDlPe79EHYm41SewkRZL",
+    "thread_id": null
+  },
+  {
+    "id": "cv_K7vDpuiw3DEZQcOnFJSys",
+    "status": "done",
+    "channel": {
+      "id": "mc_WC8PEnuk7SCssCgIvvPo1",
+      "type": "whats_app",
+      "url": "/channels/mc_WC8PEnuk7SCssCgIvvPo1"
+    },
+    "inbox": {
+      "id": "ib_qRRXT8od3oBKGov2p31N6",
+      "name": "1: Neue Anfragen",
+      "url": "/inboxes/ib_qRRXT8od3oBKGov2p31N6"
+    },
+    "labels": [
+      {
+        "id": "la_AYSy54BjEmtA1YeewWysq",
+        "name": "GPT",
+        "url": "/labels/la_AYSy54BjEmtA1YeewWysq"
+      },
+      {
+        "id": "la_X0B3mHBD7I6usZk2RXYAE",
+        "name": "Erneute KA. läuft",
+        "url": "/labels/la_X0B3mHBD7I6usZk2RXYAE"
+      }
+    ],
+    "assigned_users": [
+      {
+        "id": "us_5W0mWSo8q1RHkxjxGydvR",
+        "email": "office@abrahairdabra.com",
+        "url": "/users/us_5W0mWSo8q1RHkxjxGydvR"
+      }
+    ],
+    "contacts": [
+      {
+        "id": "ct_rQOKAAuNPga6xsxa1qTVn",
+        "url": "/contacts/ct_rQOKAAuNPga6xsxa1qTVn"
+      }
+    ],
+    "snoozed_until": null,
+    "time_window": {
+      "state": "closed",
+      "open_until": "2025-05-17T19:46:40Z"
+    },
+    "url": "/conversations/cv_K7vDpuiw3DEZQcOnFJSys",
+    "thread_id": "thread_wp2X8LlrtjJ5xNEPYRc5z13I"
+  }
+]

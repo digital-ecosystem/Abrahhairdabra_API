@@ -8,6 +8,7 @@ import vapi from './src/routers/vapi.js';
 import ProcessIncomingMessages from './src/routers/incoming.js';
 import ProcessÓutgoingMessages  from './src/routers/outgoing.js';
 import runThread from './src/routers/runThread.js';
+import "./src/utils/analyze-conversations.js"
 
 
 config();

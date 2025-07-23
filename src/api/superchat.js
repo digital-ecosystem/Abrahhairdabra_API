@@ -63,3 +63,39 @@ export async function getContentTemplateFromSuperchat(template_id)
         .then(response => response.json())
         .catch(err => console.error(err));
 }
+
+export async function listConversations(after = null) {
+  const url = `https://api.superchat.com/v1.0/conversations?limit=100${after ? "&after=" + after : ""}`;
+const options = {
+  method: 'GET', 
+  headers: {
+    accept: 'application/json',
+    'X-API-KEY': SUPERCHAT_API_KEY
+  }
+};
+
+  return fetch(url, options)
+    .then(res => res.json())
+    .catch(err => console.error(err));
+}
+
+
+export async function changeConversationInbox(inboxId, conversationId, status) {
+  const url = `https://api.superchat.com/v1.0/conversations/${conversationId}`;
+  const options = {
+    method: 'PATCH',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      'X-API-KEY': SUPERCHAT_API_KEY
+    },
+    body: JSON.stringify({
+      inbox_id: inboxId,
+      status: status
+    })
+  };
+
+return fetch(url, options)
+  .then(res => res.json())
+  .catch(err => console.error(err));
+}
